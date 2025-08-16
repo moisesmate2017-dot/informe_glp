@@ -391,9 +391,9 @@ def generar_docx_desde_dfs(df_info, df_tanques, df_accesorios, df_red, df_equipo
 
     # Panorámica de alrededores por tanque
      for i, t in enumerate(tanques_for_block):
-        serie = valOrDash(t.get("N° de serie") or t.get("serie"))
-        bloque_9.append((f"9.{contador}. FOTO PANORÁMICA DE ALREDEDORES DE TANQUE {i+1} DE SERIE: {serie}", True, 4)); contador += 1
-
+         serie = valOrDash(t.get("N° de serie") or t.get("serie"))
+         bloque_9.append((f"9.{contador}. FOTO PANORÁMICA DE ALREDEDORES DE TANQUE {i+1} DE SERIE: {serie}", True, 4)); contador += 1
+         
     # Bloque iterativo según tanques (varios subtítulos por tanque)
     for i, t in enumerate(tanques_for_block):
         serie = valOrDash(t.get("N° de serie") or t.get("serie"))
@@ -752,3 +752,4 @@ def index():
 if __name__ == "__main__":
 
     app.run(host="0.0.0.0", port=int(os.environ.get("PORT",5000)))
+
