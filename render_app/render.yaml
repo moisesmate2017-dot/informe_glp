@@ -3,5 +3,5 @@ services:
     name: informe_glp
     env: python
     plan: free
-    buildCommand: "pip install -r requirements.txt"
-    startCommand: "python servidor.py"
+    buildCommand: "cd render_app && pip install -r requirements.txt"
+    startCommand: "cd render_app && python servidor.py"
