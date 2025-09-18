@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+
 import os
 import tempfile
 from datetime import datetime
@@ -18,8 +18,7 @@ CORS(app)
 
 
 # =========================
-# UTIL: normalizar texto
-# =========================
+# normalizar texto
 def normalizar(texto):
     if texto is None:
         return ""
@@ -35,9 +34,8 @@ def valOrDash(v):
     return v if (v is not None and str(v).strip() != "") else "-"
 
 
-# =========================
+
 # FUNCIONES PARA CREAR DOCX
-# =========================
 def set_cell_style(cell, text, font_size=10, bold=False, align_center=True):
     cell.text = str(text)
     for paragraph in cell.paragraphs:
@@ -154,7 +152,6 @@ def insertar_recuadro_foto(doc, ancho_cm=15, alto_cm=10):
     tcPr.append(borders)
 
 
-# =========================
 # FUNCIÓN CENTRAL DOCX
 # =========================
 def generar_docx_desde_dfs(
@@ -353,7 +350,7 @@ def generar_docx_desde_dfs(
                 set_cell_style(tabla.cell(1, j), "-")
         accesorios_red_dict[clave] = lista
 
-    # Zona medidores boolean (buscar 'zona_medidores' código == true)
+    # Zona medidores 
     zona_medidores_bool = False
     try:
         zona_medidores_bool = (
@@ -516,7 +513,7 @@ def generar_docx_desde_dfs(
         bloque_9.append((f"9.{contador}. FOTO DE VÁLVULA DE MULTIVÁLVULA DE TANQUE {i + 1} DE SERIE: {serie}", True, 1)); contador += 1
         bloque_9.append((f"9.{contador}. FOTO DE VÁLVULA DE MEDIDOR DE PORCENTAJE DE TANQUE {i + 1} DE SERIE: {serie}", True, 1)); contador += 1
 
-    # Equipos específicos (incluir subtítulo aunque no existan)
+    # Equipos específicos
     for tipo in ["estabilizador", "quemador", "vaporizador", "tablero", "bomba", "dispensador_de_gas", "decantador", "detector"]:
         lista_eq = equipos_instalacion.get(tipo, [])
         if lista_eq:
@@ -560,7 +557,7 @@ def generar_docx_desde_dfs(
     # Zona de medidores
     bloque_9.append((f"9.{contador}. FOTO DE ZONA MEDIDORES", bool(accesorios_red_for_block.get("zona_medidores")))); contador += 1
 
-    # === Helpers internos para punto 9 ===
+    # === Subtitulos internos para punto 9 ===
     def add_foto_con_subtitulo(doc, texto, incluir_imagen=True, num_recuadros=1):
         p = doc.add_paragraph()
         run = p.add_run(texto)
@@ -679,7 +676,6 @@ def generar_docx_desde_dfs(
     return path
 
 
-# ==========================================
 # UTIL: construir DataFrames desde JSON
 # ==========================================
 def build_dfs_from_json(payload):
@@ -779,8 +775,7 @@ def build_dfs_from_json(payload):
     return df_info, df_tanques, df_accesorios, df_red, df_equipos, df_obs
 
 
-# ==========================================
-# Endpoint: recibe JSON y devuelve .docx
+# Final: recibe JSON y devuelve .docx
 # ==========================================
 @app.route("/generar", methods=["POST"])
 def generar_informe():
@@ -884,6 +879,7 @@ def index():
 if __name__ == "__main__":
     # Para Render.com respeta el puerto de entorno; local usa 5000
     app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 5000)))
+
 
 
 
